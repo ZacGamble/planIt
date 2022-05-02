@@ -32,7 +32,7 @@
         </div>
       </div>
       <hr />
-
+        <ProjectOverview />
       <!-- COMPONENT HERE -->
     </div>
   </div>
