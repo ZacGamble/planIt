@@ -1,3 +1,4 @@
+import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors";
 import { dbContext } from "../db/DbContext.js";
 
 class ProjectsService
@@ -18,9 +19,17 @@ class ProjectsService
         // Purposfully empty for potential stretch goal
     }
 
-    async remove(id)
+    async remove(id, userId)
     {
         const deleted = await dbContext.Projects.findById(id);
+        if(!deleted)
+        {
+            throw new BadRequest("Could not find project with that id");
+        }
+        if(deleted.creatorId.toString() !== userId)
+        {
+            throw new Forbidden("You do not have permission to delete this.");
+        }
         await deleted.remove()
         return deleted;
     }
