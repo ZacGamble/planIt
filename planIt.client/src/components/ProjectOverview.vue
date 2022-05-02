@@ -13,7 +13,7 @@ export default
     {
         project:
         {
-            type: "Object",
+            type: Object,
             required: true
         }
     },
