@@ -23,8 +23,7 @@ export class TasksController extends BaseController{
     async create(req, res, next) {
         try {
 
-            //may need REVIEW
-
+            
             req.body.creatorId = req.userInfo.id
             req.body.projectId = req.params.projectId
             const newTask = await tasksService.create(req.body)
@@ -34,10 +33,11 @@ export class TasksController extends BaseController{
         }
     }
     async edit(req, res, next) {
+        //may need REVIEW
         try {
             req.body.id = req.params.taskId
             req.body.creatorId = req.userInfo.id
-            const task = await tasksService.create(req.body)
+            const task = await tasksService.edit(req.body)
             return res.send(task)
         } catch (error) {
             next(error)
