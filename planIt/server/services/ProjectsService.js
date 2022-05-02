@@ -5,8 +5,17 @@ class ProjectsService
 {
     async getAll(creatorId)
     {
-        const gotten = await dbContext.Projects.find({ creatorId }).populate('creator');
-        return gotten;
+        return await dbContext.Projects.find({ creatorId }).populate('creator');
+    }
+
+    async getById(id)
+    {
+        const found = await dbContext.Projects.findById(id).populate('creator');
+        if(!found)
+        {
+            throw new BadRequest("Could not find project with that id");
+        }
+        return found;
     }
 
     async create(data)
@@ -23,11 +32,7 @@ class ProjectsService
 
     async remove(id, userId)
     {
-        const deleted = await dbContext.Projects.findById(id);
-        if(!deleted)
-        {
-            throw new BadRequest("Could not find project with that id");
-        }
+        const deleted = await this.getById(id);
         if(deleted.creatorId.toString() !== userId)
         {
             throw new Forbidden("You do not have permission to delete this.");
