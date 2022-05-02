@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-          <h4>PlanIt</h4>
+        <h4>PlanIt</h4>
       </div>
     </router-link>
     <button
@@ -16,9 +16,9 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
+
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-      </ul>
+      <ul class="navbar-nav me-auto"></ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>

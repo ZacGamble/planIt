@@ -42,26 +42,28 @@
       <!-- COMPONENT HERE -->
     </div>
   </div>
-  <Modal />
+  <Modal>
+    <template #modal-body-slot><CreateProjectForm /></template>
+  </Modal>
 </template>
 
 <script>
 import { computed, onMounted } from '@vue/runtime-core'
 import Modal from '../components/Modal.vue'
 import { AppState } from '../AppState.js';
+import { projectsService } from '../services/ProjectsService.js'
 export default {
   components: { Modal },
   name: 'Home',
-  setup()
-  {
-      onMounted(() =>
-      {
-          // TODO add projects service to get projects
-      });
+  setup() {
+    onMounted(() => {
+      // TODO add projects service to get projects
+      projectsService.getProjects()
+    });
 
-      return {
-          projects: computed(() => AppState.projects)
-      }
+    return {
+      projects: computed(() => AppState.projects)
+    }
   }
 }
 </script>
