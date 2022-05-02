@@ -27,13 +27,13 @@
         <div class="col-md-4">
           <h5>MEMBERS</h5>
         </div>
-        <div class="col-md-4">STARTED</div>
+        <div class="col-md-4">
+          <h5>STARTED</h5>
+        </div>
       </div>
       <hr />
+
       <!-- COMPONENT HERE -->
-      <h1 class="my-5 bg-secondary text-white p-3 rounded text-center">
-        planIt
-      </h1>
     </div>
   </div>
 </template>
