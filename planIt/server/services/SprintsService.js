@@ -24,7 +24,7 @@ class SprintsService
         return created;
     }
 
-    async delete(id, userId)
+    async remove(id, userId)
     {
         const deleted = await this.getById(id);
         if(deleted.creatorId.toString() !== userId)

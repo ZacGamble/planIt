@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { sprintsService } from "../services/SprintsService";
 import BaseController from "../utils/BaseController";
 
 export class SprintsController extends BaseController {
@@ -32,5 +33,6 @@ try {
     
 } catch (error) {
     next(error)
-}    }
+}  
+  }
 }
