@@ -17,7 +17,13 @@
           <p class="fs-4">A list of all the projects for "YOU"</p>
         </div>
         <div class="col-md-2">
-          <button class="btn btn-outline-primary">Create Project</button>
+          <button
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Create Project
+          </button>
         </div>
       </div>
       <div class="row mt-5">
@@ -32,14 +38,17 @@
         </div>
       </div>
       <hr />
-        <ProjectOverview />
+      <ProjectOverview />
       <!-- COMPONENT HERE -->
     </div>
   </div>
+  <Modal />
 </template>
 
 <script>
+import Modal from '../components/Modal.vue'
 export default {
+  components: { Modal },
   name: 'Home'
 }
 </script>
