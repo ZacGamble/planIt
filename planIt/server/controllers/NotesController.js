@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { notesService } from "../services/NotesService";
 import BaseController from "../utils/BaseController";
 
 export class NotesController extends BaseController {
@@ -20,7 +21,9 @@ export class NotesController extends BaseController {
     }
    async create(req, res, next) {
         try {
-            const newNote = await notesService.create(req.params.projectId)
+            req.body.creatorId = req.userInfo.id
+            req.body.projectId = req.params.projectId
+            const newNote = await notesService.create(req.body)
             return res.send(newNote)
         } catch (error) {
             next(error)
