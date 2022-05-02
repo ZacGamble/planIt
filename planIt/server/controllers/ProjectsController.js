@@ -7,20 +7,28 @@ export class ProjectsController extends BaseController {
         this.router
         .use(Auth0Provider.getAuthorizedUserInfo)
         .get('', this.getAll)
+        .get('/:id', this.getById)
         .post('', this.create)
         .put('/:id', this.edit)
         .delete('/:id', this.remove)
 
     }
     async getAll(req, res, next) {
-try {
+        try {
   const projects = await projectsService.getAll(req.userInfo.id)
   return res.send(projects)
 } catch (error) {
-  next(error)
-  
+    next(error) 
 }
-    }
+
+}
+async getById(req, res, next) {
+   try {
+       const foundProject = await projectsService.getById(req.params.id)
+   } catch (error) {
+       next(error)
+   }
+}
     async create(req, res, next) {
 try {
   req.body.creatorId = req.userInfo.id
