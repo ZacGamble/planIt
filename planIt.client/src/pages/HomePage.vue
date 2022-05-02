@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-md-10">
           <h3>Projects</h3>
-          <p class="fs-4">A list of all the projects for "YOU"</p>
+          <p class="fs-4">A list of all the projects for {{ account.name }}</p>
         </div>
         <div class="col-md-2">
           <button
@@ -62,7 +62,8 @@ export default {
     });
 
     return {
-      projects: computed(() => AppState.projects)
+      projects: computed(() => AppState.projects),
+      account: computed(() => AppState.account)
     }
   }
 }
