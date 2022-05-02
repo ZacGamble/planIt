@@ -54,8 +54,8 @@ try {
     }
    async remove(req, res, next) {
 try {
-    await projectsService.remove(req.params.id, req.userInfo.id)
-    return res.send('Project deleted')
+   const removedProject= await projectsService.remove(req.params.id, req.userInfo.id)
+    return res.send(removedProject)
   
 } catch (error) {
   next(error)
