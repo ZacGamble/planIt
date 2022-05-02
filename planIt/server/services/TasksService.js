@@ -33,6 +33,7 @@ class TasksService
             throw new Forbidden("You do not have permission to edit this.");
         }
         edited.sprintId = data.sprintId || edited.sprintId;
+        edited.isComplete = (typeof data.isComplete === "boolean" ? data.isComplete : edited.isComplete);
         await edited.save();
         return edited;
     }
