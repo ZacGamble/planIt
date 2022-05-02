@@ -2,7 +2,7 @@ import { AppState } from "../AppState.js";
 import { logger } from "../utils/Logger.js";
 import { api } from "./AxiosService.js";
 
-class ProfilesService
+class ProjectsService
 {
     async getProjects()
     {
@@ -12,4 +12,4 @@ class ProfilesService
     }
 }
 
-export const profilesService = new ProfilesService();
+export const projectsService = new ProjectsService();
