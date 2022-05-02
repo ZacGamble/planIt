@@ -38,7 +38,7 @@
         </div>
       </div>
       <hr />
-      <ProjectOverview />
+      <ProjectOverview v-for="p in projects" :key="p.id" :project="p" />
       <!-- COMPONENT HERE -->
     </div>
   </div>
@@ -46,10 +46,23 @@
 </template>
 
 <script>
+import { computed, onMounted } from '@vue/runtime-core'
 import Modal from '../components/Modal.vue'
+import { AppState } from '../AppState.js';
 export default {
   components: { Modal },
-  name: 'Home'
+  name: 'Home',
+  setup()
+  {
+      onMounted(() =>
+      {
+          // TODO add projects service to get projects
+      });
+
+      return {
+          projects: computed(() => AppState.projects);
+      }
+  }
 }
 </script>
 
