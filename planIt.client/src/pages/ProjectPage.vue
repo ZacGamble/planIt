@@ -1,8 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6"></div>
-      <div class="col-md-6"></div>
+      <div class="col-md-12">
+        Title of Project, delete button, then description
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">Add Sprint button</div>
     </div>
     <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
   </div>
