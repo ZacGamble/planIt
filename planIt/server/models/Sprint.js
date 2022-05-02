@@ -12,3 +12,10 @@ export const SprintSchema = new Schema(
         toJSON: { virtuals: true }
     }
 );
+
+SprintSchema.virtual('creator', {
+    localField: 'creatorId',
+    foreignField: '_id',
+    ref: 'Account',
+    justOne: true
+})

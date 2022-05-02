@@ -5,12 +5,12 @@ class SprintsService
 {
     async getAll(projectId)
     {
-        return await dbContext.Sprints.find({ projectId });
+        return await dbContext.Sprints.find({ projectId }).populate('creator');
     }
 
     async getById(id)
     {
-        const found = await dbContext.Sprints.findById(id);
+        const found = await dbContext.Sprints.findById(id).populate('creator');
         if(!found)
         {
             throw new BadRequest("Could not find sprint with that id");
@@ -21,6 +21,7 @@ class SprintsService
     async create(data)
     {
         const created = await dbContext.Sprints.create(data);
+        await created.populate('creator');
         return created;
     }
 
