@@ -3,14 +3,16 @@ import { dbContext } from "../db/DbContext.js";
 
 class ProjectsService
 {
-    async getAll(id)
+    async getAll(creatorId)
     {
-        return await dbContext.Projects.find({ id });
+        const gotten = await dbContext.Projects.find({ creatorId }).populate('creator');
+        return gotten;
     }
 
     async create(data)
     {
         const created = await dbContext.Projects.create(data);
+        await created.populate('creator');
         return created;
     }
 

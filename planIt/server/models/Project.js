@@ -12,3 +12,10 @@ export const ProjectSchema = new Schema(
         toJSON: { virtuals: true }
     }
 );
+
+ProjectSchema.virtual('creator', {
+    localField: 'creatorId',
+    foreignField: '_id',
+    ref: 'Account',
+    justOne: true
+})
