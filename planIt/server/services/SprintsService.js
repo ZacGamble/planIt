@@ -13,7 +13,7 @@ class SprintsService
         const found = await dbContext.Sprints.findById(id).populate('creator');
         if(!found)
         {
-            throw new BadRequest("Could not find sprint with that id");
+            throw new BadRequest("Could not find sprint with that id.");
         }
         return found;
     }

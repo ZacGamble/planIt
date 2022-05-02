@@ -13,7 +13,7 @@ class ProjectsService
         const found = await dbContext.Projects.findById(id).populate('creator');
         if(!found)
         {
-            throw new BadRequest("Could not find project with that id");
+            throw new BadRequest("Could not find project with that id.");
         }
         return found;
     }
