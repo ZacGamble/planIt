@@ -17,7 +17,7 @@ export class TasksController extends BaseController{
             const tasks = await tasksService.getAll(req.params.projectId)
             return res.send(tasks)
         } catch (error) {
-            next()
+            next(error)
         }
     }
     async create(req, res, next) {
@@ -30,24 +30,25 @@ export class TasksController extends BaseController{
             const newTask = await tasksService.create(req.body)
             return res.send(newTask)
         } catch (error) {
-            next()
+            next(error)
         }
     }
     async edit(req, res, next) {
         try {
+            req.body.id = req.params.taskId
             req.body.creatorId = req.userInfo.id
             const task = await tasksService.create(req.body)
             return res.send(task)
         } catch (error) {
-            next()
+            next(error)
         }
     }
     async remove(req, res, next) {
         try {
-            const removedTask = await sprintsService.remove(req.params.taskId, req.userInfo.id)
+            const removedTask = await tasksService.remove(req.params.taskId, req.userInfo.id)
             return res.send(removedTask)
         } catch (error) {
-            next()
+            next(error)
         }
     }
 }
