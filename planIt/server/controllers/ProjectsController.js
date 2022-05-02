@@ -25,6 +25,7 @@ export class ProjectsController extends BaseController {
 async getById(req, res, next) {
    try {
        const foundProject = await projectsService.getById(req.params.id)
+       return res.send(foundProject)
    } catch (error) {
        next(error)
    }
