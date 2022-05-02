@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-4">
+  <div class="row mb-4 selectable" @click="openProject">
     <div class="col-4">
       <h4>{{ project.name }}</h4>
     </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default
   {
     props:
@@ -27,8 +28,12 @@ export default
     },
 
     setup() {
+        const router = useRouter();
       return {
-
+          openProject()
+          {
+              router.push({name: 'Project', params: { id: project.id }})
+          }
       }
     }
   }
