@@ -35,6 +35,8 @@ class TasksService
         }
         edited.sprintId = data.sprintId || edited.sprintId;
         edited.isComplete = (typeof data.isComplete === "boolean" ? data.isComplete : edited.isComplete);
+        edited.weight = data.weight || edited.weight;
+        edited.name = data.name || edited.name;
         await edited.save();
         return edited;
     }
