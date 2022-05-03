@@ -16,12 +16,23 @@ class ProjectsService
         logger.log('The active project', res.data)
     }
 
+    clearActive()
+    {
+        AppState.activeProject = null;
+    }
+    
     async createProject(data)
     {
         const res = await api.post("api/projects", data);
         logger.log("Projects Service > create response", res.data);
         AppState.projects.unshift(res.data);
         return res.data.id;
+    }
+
+    async deleteProject(id)
+    {
+        const res = await api.delete("api/projects/" + id);
+        AppState.projects = AppState.projects.filter(project => project.id !== res.data.id);
     }
 }
 

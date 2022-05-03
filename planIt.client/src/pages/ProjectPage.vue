@@ -7,7 +7,7 @@
             <h1>
               {{ project?.name }}
             </h1>
-            <button class="btn btn-outline-danger mx-4">Delete</button>
+            <button class="btn btn-outline-danger mx-4" @click="deleteProject">Delete</button>
           </div>
           <h5>
             {{ project?.description }}
@@ -38,13 +38,14 @@
 import { computed } from '@vue/reactivity'
 import Sprint from '../components/Sprint.vue'
 import { AppState } from '../AppState'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { onMounted } from '@vue/runtime-core'
 import { sprintsService } from '../services/SprintsService.js'
 import { logger } from '../utils/Logger'
 import { projectsService } from '../services/ProjectsService'
 import { tasksService } from '../services/TasksService.js';
 import { notesService } from '../services/NotesService.js';
+import Pop from '../utils/Pop.js'
 export default {
   components: { Sprint },
 
@@ -52,8 +53,12 @@ export default {
 
     const user = computed(() => AppState.user);
     const route = useRoute()
+    const router = useRouter()
     onMounted(async () => {
-      logger.log(user)
+        projectsService.clearActive();
+        sprintsService.clearActive();
+        tasksService.clearActive();
+        notesService.clearActive();
       if (user.value.isAuthenticated) {
         logger.log('mounted?')
         await projectsService.getProjects();
@@ -66,7 +71,24 @@ export default {
 
     return {
       sprints: computed(() => AppState.sprints),
-      project: computed(() => AppState.activeProject)
+      project: computed(() => AppState.activeProject),
+      async deleteProject()
+      {
+          try
+          {
+              if(await Pop.confirm())
+              {
+                  await projectsService.deleteProject(route.params.id);
+                  Pop.toast("Project deleted", "success")
+                  router.push({name: "Home"});
+              }
+          }
+          catch(error)
+          {
+              logger.error(error.message);
+              Pop.toast(error.message, "error");
+          }
+      }
     }
   }
 }

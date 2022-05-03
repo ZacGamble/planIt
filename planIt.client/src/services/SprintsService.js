@@ -8,6 +8,11 @@ class SprintsService {
         AppState.sprints = res.data
         logger.log('[sprints service] > getByProjectId Response',res.data)
     }
+
+    clearActive()
+    {
+        AppState.sprints = [];
+    }
 }
 
 export const sprintsService = new SprintsService()

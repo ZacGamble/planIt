@@ -9,6 +9,11 @@ class NotesService
          AppState.notes = res.data
          logger.log('[notes service] > getByProjectId Response',res.data)
      }
+
+     clearActive()
+     {
+         AppState.notes = [];
+     }
 }
 
 export const notesService = new NotesService();
