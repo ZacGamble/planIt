@@ -24,7 +24,7 @@
           <button
             class="btn btn-outline-primary"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#create-project-modal"
           >
             Create Project
           </button>
@@ -46,7 +46,7 @@
       <!-- COMPONENT HERE -->
     </div>
   </div>
-  <Modal>
+  <Modal id="create-project-modal">
     <template #modal-body-slot><CreateProjectForm /></template>
   </Modal>
 </template>
