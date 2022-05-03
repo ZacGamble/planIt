@@ -9,6 +9,11 @@ class TasksService
          AppState.tasks = res.data
          logger.log('[tasks service] > getByProjectId Response',res.data)
      }
+     async createTask(data){
+         const res = await api.post('api/projects/' + data.projectId + '/tasks', data)
+         logger.log('Tasks service > create task',res.data)
+         AppState.tasks.push(res.data)
+     }
 
      clearActive()
      {
