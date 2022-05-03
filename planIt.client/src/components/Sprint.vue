@@ -32,16 +32,28 @@
       </a>
       <div
         :id="'sprint-' + sprint.id"
-        class="showable ps-2 mx-2 mb-2 border border-dark bg-gray border-top-0"
+        class="
+          showable
+          ps-2
+          mx-2
+          mb-2
+          border border-dark
+          bg-gray
+          border-top-0
+          position-relative
+        "
         :class="{ 'not-shown': collapsed, 'p-2': !collapsed }"
       >
         <Task v-for="t in tasks" :key="t.id" :task="t" />
-        tasks tasks tasks tasks tasks tasks tasks tasks tasks tasks
+        <div class="d-flex sprint-delete-button action" @click="deleteSprint">
+          <p class="m-0">Delete {{ sprint.name }}</p>
+          <i class="mdi mdi-delete"></i>
+        </div>
       </div>
     </div>
   </div>
   <Modal :id="'create-task-modal' + sprint.id">
-    <template #modal-header-slot> </template>
+    <template #modal-header-slot> <h2>Add task</h2> </template>
     <template #modal-body-slot>
       <CreateTaskForm :sprintId="sprint.id" />
     </template>
@@ -53,6 +65,10 @@
 import { computed, ref } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { Modal } from 'bootstrap';
+import Pop from '../utils/Pop.js';
+import { logger } from '../utils/Logger.js';
+import { sprintsService } from '../services/SprintsService.js';
+import { useRoute } from 'vue-router';
 export default {
   props:
   {
@@ -66,6 +82,7 @@ export default {
   setup(props) {
     const tasks = computed(() => AppState.tasks.filter(task => task.sprintId === props.sprint.id));
     const collapsed = ref(true)
+    const route = useRoute()
     return {
       collapsed,
       tasks,
@@ -80,6 +97,17 @@ export default {
       },
       addTask() {
         Modal.getOrCreateInstance(document.getElementById('create-task-modal' + props.sprint.id)).show()
+      },
+      async deleteSprint() {
+        try {
+          if (await Pop.confirm()) {
+            await sprintsService.deleteSprint(props.sprint.id, route.params.id)
+            Pop.toast('Sprint deleted', 'success')
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }
@@ -94,5 +122,10 @@ export default {
 .showable {
   overflow-y: hidden;
   transition: all 0.2s linear;
+}
+.sprint-delete-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
 </style> 

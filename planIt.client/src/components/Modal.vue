@@ -8,7 +8,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
+          <slot name="modal-header-slot"> </slot>
           <button
             type="button"
             class="btn-close"
