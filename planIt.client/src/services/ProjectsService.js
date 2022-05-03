@@ -7,8 +7,13 @@ class ProjectsService
     async getProjects()
     {
         const res = await api.get('api/projects');
-        logger.log("Profiles Service > getProjects() res", res.data);
+        
         AppState.projects = res.data;
+    }
+    async getByProjectId(id){
+        const res = await api.get('api/projects/' + id)
+        AppState.activeProject = res.data
+        logger.log('The active project', res.data)
     }
 }
 
