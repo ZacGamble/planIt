@@ -59,6 +59,18 @@
       <CreateTaskForm :sprintId="sprint.id" />
     </template>
   </Modal>
+
+  <OffCanvas class="offcanvas-end" id="task-offcanvas">
+      <template #offcanvas-header-slot>
+          <h4>{{activeTask?.name}}</h4>
+      </template>
+      <template #offcanvas-body-slot>
+        <p>Pending select</p>
+        <p>Notes</p>
+        <p>New Note</p>
+        <p>Detailed Note Component v-for'd</p>
+      </template>
+  </OffCanvas>
 </template>
 
 
@@ -84,7 +96,10 @@ export default {
     const tasks = computed(() => AppState.tasks.filter(task => task.sprintId === props.sprint.id));
     const collapsed = ref(true)
     const route = useRoute()
+    const activeTask = computed(() => AppState.activeTask)
     return {
+      activeTask,
+      activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value.id)),
       collapsed,
       tasks,
       tasksWeight: computed(() => {

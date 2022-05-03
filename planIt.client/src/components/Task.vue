@@ -21,7 +21,7 @@
         </div> -->
         <div class="text-primary mt-3 border-dark border-start pb-4 ps-2 position-relative fs-5">
             <div class="task-details ms-3">
-                <span class="pe-4">{{notesCount}}<i class="mdi mdi-comment"></i></span>
+                <span class="pe-4" @click="openOffCanvas">{{notesCount}}<i class="mdi mdi-comment"></i></span>
                 <span>{{task.weight}}<i class="mdi mdi-weight"></i></span>
             </div>
         </div>
@@ -41,6 +41,7 @@ import { tasksService } from '../services/TasksService.js'
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
+import { Offcanvas } from 'bootstrap';
 export default {
   props: {
     task: {
@@ -82,6 +83,11 @@ export default {
                 logger.error("[Task.vue > deleteTask()]", error.message);
                 Pop.toast(error.message, "error");
             }
+        },
+        openOffCanvas()
+        {
+            AppState.activeTask = props.task;
+            Offcanvas.getOrCreateInstance(document.getElementById("task-offcanvas")).show();
         }
     }
   }
