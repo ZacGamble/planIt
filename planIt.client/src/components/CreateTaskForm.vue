@@ -10,12 +10,14 @@
             placeholder="Name..."
             aria-labelledby="name"
             v-model="newData.name"
+            required
           />
           <input
             type="number"
             min="0"
             placeholder="0"
             v-model="newData.weight"
+            required
           />
         </div>
         <div class="modal-footer">
@@ -59,6 +61,7 @@ export default {
           newData.value.sprintId = props.sprintId
           const newId = await tasksService.createTask(newData.value);
           Modal.getOrCreateInstance(document.getElementById("create-task-modal" + props.sprintId)).hide();
+          newData.value = {};
         }
         catch (error) {
           logger.error("[Create task Form > createtask()]", error.message);

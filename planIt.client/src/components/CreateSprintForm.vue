@@ -9,6 +9,7 @@
           placeholder="Name..."
           aria-labelledby="name"
           v-model="newData.name"
+          required
         />
       </div>
       <div class="modal-footer">
@@ -42,6 +43,7 @@ export default {
                 newData.value.projectId = route.params.id;
                 const newId = await sprintsService.createSprint(newData.value);
                 Modal.getOrCreateInstance(document.getElementById("create-sprint-modal")).hide();
+                newData.value = {};
             }
             catch(error)
             {

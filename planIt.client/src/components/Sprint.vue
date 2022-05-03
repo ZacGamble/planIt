@@ -45,6 +45,7 @@
         :class="{ 'not-shown': collapsed, 'p-2': !collapsed }"
       >
         <Task v-for="t in tasks" :key="t.id" :task="t" />
+        <div class="my-3"></div>
         <div class="d-flex sprint-delete-button action" @click="deleteSprint">
           <p class="m-0">Delete {{ sprint.name }}</p>
           <i class="mdi mdi-delete"></i>

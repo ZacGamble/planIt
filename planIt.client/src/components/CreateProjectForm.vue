@@ -9,6 +9,7 @@
           placeholder="Name..."
           aria-labelledby="name"
           v-model="newData.name"
+          required
         />
         <label class="mt-2" for="description">Description</label>
         <textarea
@@ -16,6 +17,7 @@
           name="description"
           placeholder="Type a description...."
           v-model="newData.description"
+          required
         ></textarea>
       </div>
       <div class="modal-footer">
@@ -49,6 +51,7 @@ export default {
                 const newId = await projectsService.createProject(newData.value);
                 Modal.getOrCreateInstance(document.getElementById("create-project-modal")).hide();
                 router.push({name: "Project", params: { id: newId }});
+                newData.value = {};
             }
             catch(error)
             {

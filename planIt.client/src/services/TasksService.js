@@ -19,6 +19,20 @@ class TasksService
      {
          AppState.tasks = [];
      }
+
+     async toggleTask(id, projectId, data)
+     {
+         const res = await api.put("api/projects/" + projectId + "/tasks/" + id, data);
+         logger.log("toggle tasks Response", res.data);
+         const index = AppState.tasks.findIndex(task => task.id === res.data.id);
+         AppState.tasks.splice(index, 1, res.data);
+     }
+
+     async deleteTask(id, projectId)
+     {
+         const res = await api.delete("api/projects/" + projectId + "/tasks/" + id);
+         AppState.tasks = AppState.tasks.filter(task => task.id !== res.data.id);
+     }
 }
 
 export const tasksService = new TasksService();
