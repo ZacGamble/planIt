@@ -1,8 +1,8 @@
 <template>
-    <div v-if="!user.isAuthenticated">
-        <h4>Login to continue</h4>
-        <Login />
-    </div>
+  <div v-if="!user.isAuthenticated">
+    <h4>Login to continue</h4>
+    <Login />
+  </div>
   <div v-else class="boundary flex-grow-1">
     <div
       class="
@@ -52,26 +52,22 @@
 </template>
 
 <script>
-import { computed, watchEffect } from '@vue/runtime-core'
+import { computed, onMounted, watchEffect } from '@vue/runtime-core'
 import Modal from '../components/Modal.vue'
 import { AppState } from '../AppState.js';
 import { projectsService } from '../services/ProjectsService.js'
 export default {
   components: { Modal },
   name: 'Home',
-  watch:
-  {
-      user(newValue)
-      {
-        if(newValue.isAuthenticated)
-        {
-            projectsService.getProjects();
-        }
-      }
-  },
 
   setup() {
-      const user = computed(() => AppState.user);
+
+    const user = computed(() => AppState.user);
+    onMounted(() => {
+      if (user.value.isAuthenticated) {
+        projectsService.getProjects();
+      }
+    })
 
     return {
       projects: computed(() => AppState.projects),

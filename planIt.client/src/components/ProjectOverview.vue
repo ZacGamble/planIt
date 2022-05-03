@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core';
 import { useRouter } from 'vue-router'
 export default
   {
