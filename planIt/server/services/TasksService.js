@@ -20,6 +20,7 @@ class TasksService
 
     async create(data)
     {
+        // TODO add project creator check 
         const created = await dbContext.Tasks.create(data);
         await created.populate('creator');
         return created;
