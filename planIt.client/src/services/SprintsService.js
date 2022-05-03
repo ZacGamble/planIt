@@ -13,6 +13,12 @@ class SprintsService {
     {
         AppState.sprints = [];
     }
+
+    async createSprint(data)
+    {
+        const res = await api.post("api/projects/" + data.projectId + "/sprints", data);
+        AppState.sprints.push(res.data);
+    }
 }
 
 export const sprintsService = new SprintsService()

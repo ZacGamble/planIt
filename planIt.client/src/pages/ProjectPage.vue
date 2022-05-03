@@ -25,12 +25,20 @@
               better orgainization.
             </p>
           </div>
-          <button class="btn btn-outline-primary">Add Sprint</button>
+          <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#create-sprint-modal">Add Sprint</button>
         </div>
       </div>
     </div>
     <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
   </div>
+  <Modal id="create-sprint-modal">
+      <template #modal-header-slot>
+          <h2>Create Sprint</h2>
+      </template>
+      <template #modal-body-slot>
+          <CreateSprintForm />
+      </template>
+  </Modal>
 </template>
 
 
