@@ -43,6 +43,8 @@ import { onMounted } from '@vue/runtime-core'
 import { sprintsService } from '../services/SprintsService.js'
 import { logger } from '../utils/Logger'
 import { projectsService } from '../services/ProjectsService'
+import { tasksService } from '../services/TasksService.js';
+import { notesService } from '../services/NotesService.js';
 export default {
   components: { Sprint },
 
