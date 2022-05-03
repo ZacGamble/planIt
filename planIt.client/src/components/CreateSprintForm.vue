@@ -41,8 +41,9 @@ export default {
             try
             {
                 newData.value.projectId = route.params.id;
-                const newId = await sprintsService.createSprint(newData.value);
                 Modal.getOrCreateInstance(document.getElementById("create-sprint-modal")).hide();
+                const newId = await sprintsService.createSprint(newData.value);
+                Pop.toast("New Sprint created", "success")
                 newData.value = {};
             }
             catch(error)

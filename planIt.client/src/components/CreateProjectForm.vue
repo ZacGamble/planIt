@@ -48,8 +48,9 @@ export default {
         {
             try
             {
-                const newId = await projectsService.createProject(newData.value);
                 Modal.getOrCreateInstance(document.getElementById("create-project-modal")).hide();
+                const newId = await projectsService.createProject(newData.value);
+                Pop.toast("New Project created", "success")
                 router.push({name: "Project", params: { id: newId }});
                 newData.value = {};
             }

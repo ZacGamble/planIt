@@ -59,8 +59,9 @@ export default {
         try {
           newData.value.projectId = route.params.id;
           newData.value.sprintId = props.sprintId
-          const newId = await tasksService.createTask(newData.value);
           Modal.getOrCreateInstance(document.getElementById("create-task-modal" + props.sprintId)).hide();
+          const newId = await tasksService.createTask(newData.value);
+          Pop.toast("New Task created", "success");
           newData.value = {};
         }
         catch (error) {
