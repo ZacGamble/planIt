@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-4 selectable" @click="openProject">
+  <div class="row mb-4 selectable" @click="openProject()">
     <div class="col-4">
       <h4>{{ project.name }}</h4>
     </div>
@@ -27,13 +27,12 @@ export default
       }
     },
 
-    setup() {
-        const router = useRouter();
+    setup(props) {
+      const router = useRouter();
       return {
-          openProject()
-          {
-              router.push({name: 'Project', params: { id: project.id }})
-          }
+        openProject() {
+          router.push({ name: 'Project', params: { id: props.project.id } })
+        }
       }
     }
   }
