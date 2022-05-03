@@ -1,16 +1,30 @@
 <template>
-  <div class="component">
+  <div class="component my-2 py-2 ms-5">
     <div class="d-flex">
       <i
-        class="action pe-2 mdi"
+        class="action pe-1 fs-3 mdi"
         :class="{
           'mdi-checkbox-outline': task.isComplete,
           'mdi-checkbox-blank-outline': !task.isComplete,
         }"
         @click="toggleTask"
       ></i>
-      <p class="my-0 px-2">{{ task.name }}</p>
-      <i class="ps-2 action mdi mdi-delete" @click="deleteTask"></i>
+      <div class="d-flex align-items-center">
+        <p class="my-0 px-3 py-1 rounded-pill bg-danger">{{ task.name }}</p>
+      </div>
+      <i class="ps-1 action fs-3 mdi mdi-delete" @click="deleteTask"></i>
+    </div>
+    <div class="d-flex flex-column">
+        <!-- <div class="d-flex">
+            <i class="mdi mdi-run"></i>
+            TODO created on will go here if we do it
+        </div> -->
+        <div class="text-primary mt-3 border-dark border-start pb-4 ps-2 position-relative fs-5">
+            <div class="task-details ms-3">
+                <span class="pe-4">{{notesCount}}<i class="mdi mdi-comment"></i></span>
+                <span>{{task.weight}}<i class="mdi mdi-weight"></i></span>
+            </div>
+        </div>
     </div>
   </div>
   <Modal id="create-task-modal">
@@ -21,10 +35,12 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
 import { useRoute } from 'vue-router'
 import { tasksService } from '../services/TasksService.js'
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
+import { AppState } from '../AppState.js';
 export default {
   props: {
     task: {
@@ -35,7 +51,10 @@ export default {
 
   setup(props) {
       const route = useRoute();
+      const notes = computed(() => AppState.notes.filter(note => note.taskId === props.task.id));
     return {
+        notes, 
+        notesCount: computed(() => notes.value.length),
         async toggleTask()
         {
             try
@@ -71,4 +90,9 @@ export default {
 
 
 <style lang="scss" scoped>
+.task-details
+{
+    position: relative;
+    top: -0.5rem;
+}
 </style>

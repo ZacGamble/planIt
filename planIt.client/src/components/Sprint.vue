@@ -38,7 +38,7 @@
           mx-2
           mb-2
           border border-dark
-          bg-gray
+          bg-grey
           border-top-0
           position-relative
         "
