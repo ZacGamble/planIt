@@ -64,10 +64,11 @@
     <template #offcanvas-header-slot>
       <div class="d-flex justify-content-between flex-grow-1 ms-4">
         <h4>{{ activeTask?.name }}</h4>
-        <i class="mdi mdi-pencil"></i>
+        <i class="mdi mdi-pencil action" @click="startEdit" v-if="!editing"></i>
       </div>
     </template>
     <template #offcanvas-body-slot>
+        <TaskForm v-if="activeTask && editing" />
       <div>
         <p>Status:</p>
         <div class="d-flex align-items-center mx-3">
@@ -155,9 +156,10 @@ export default {
     return {
       newNote,
       activeTask,
-      activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value?.id)),
       collapsed,
       tasks,
+      editing: computed(() => AppState.editingTask),
+      activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value?.id)),
       tasksWeight: computed(() => {
         let sum = 0;
         tasks.value.forEach(task => sum += task.weight)
@@ -193,7 +195,10 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
-
+      },
+      startEdit()
+      {
+          AppState.editingTask = true;
       }
     }
   }

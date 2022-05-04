@@ -28,6 +28,15 @@ class TasksService
          AppState.tasks.splice(index, 1, res.data);
      }
 
+     async editTask(data)
+     {
+         const res = await api.put("/api/projects/" + data.projectId + "/tasks/" + data.id, data);
+         logger.log("editTask res", res.data);
+         const index = AppState.tasks.findIndex(task => task.id === res.data.id);
+         AppState.tasks.splice(index, 1, res.data);
+         AppState.activeTask = res.data;
+     }
+
      async deleteTask(id, projectId)
      {
          const res = await api.delete("api/projects/" + projectId + "/tasks/" + id);
