@@ -10,6 +10,11 @@ class NotesService
          logger.log('[notes service] > getByProjectId Response',res.data)
      }
 
+     async addNote(newNote){
+        const res = await api.post('api/projects/' + newNote.projectId + '/notes', newNote)
+        AppState.notes.unshift(res.data)
+     }
+
      clearActive()
      {
          AppState.notes = [];

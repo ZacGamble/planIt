@@ -61,15 +61,68 @@
   </Modal>
 
   <OffCanvas class="offcanvas-end" id="task-offcanvas">
-      <template #offcanvas-header-slot>
-          <h4>{{activeTask?.name}}</h4>
-      </template>
-      <template #offcanvas-body-slot>
-        <p>Pending select</p>
-        <p>Notes</p>
-        <p>New Note</p>
-        <p>Detailed Note Component v-for'd</p>
-      </template>
+    <template #offcanvas-header-slot>
+      <div class="d-flex justify-content-between flex-grow-1 ms-4">
+        <h4>{{ activeTask?.name }}</h4>
+        <i class="mdi mdi-pencil"></i>
+      </div>
+    </template>
+    <template #offcanvas-body-slot>
+      <div>
+        <p>Status:</p>
+        <div class="d-flex align-items-center mx-3">
+          <button
+            class="btn rounded-pill px-4 fw-bold"
+            :class="{
+              'btn-primary': !activeTask?.isComplete,
+              'btn-outline-primary': activeTask?.isComplete,
+            }"
+          >
+            Pending
+          </button>
+          <div
+            class="border-top border-bottom flex-grow-1 not-shown mx-5"
+          ></div>
+          <button
+            class="btn rounded-pill px-4 fw-bold"
+            :class="{
+              'btn-success': activeTask?.isComplete,
+              'btn-outline-success': !activeTask?.isComplete,
+            }"
+          >
+            Done
+          </button>
+        </div>
+      </div>
+      <div class="mt-3 flex-column d-flex">
+        <h5 class="align-self-center">Notes</h5>
+        <hr class="mx-5" />
+        <div>
+          <form @submit.prevent="addNote">
+            <div class="d-flex flex-column my-3">
+              <label for="new-note" class="mb-3">Add a Note</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  placeholder="Say Something..."
+                  name="new-note"
+                  class="form-control"
+                  v-model="newNote.body"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  id="button-addon2"
+                >
+                  <i class="mdi mdi-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <Note v-for="n in activeNotes" :key="n.id" :note="n" />
+        </div>
+      </div>
+    </template>
   </OffCanvas>
 </template>
 
@@ -82,6 +135,7 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { sprintsService } from '../services/SprintsService.js';
 import { useRoute } from 'vue-router';
+import { notesService } from '../services/NotesService.js';
 export default {
   props:
   {
@@ -97,9 +151,11 @@ export default {
     const collapsed = ref(true)
     const route = useRoute()
     const activeTask = computed(() => AppState.activeTask)
+    const newNote = ref({})
     return {
+      newNote,
       activeTask,
-      activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value.id)),
+      activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value?.id)),
       collapsed,
       tasks,
       tasksWeight: computed(() => {
@@ -124,6 +180,20 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
+      },
+      async addNote() {
+        try {
+          newNote.value.projectId = route.params.id
+          newNote.value.taskId = activeTask?.value.id
+          logger.log()
+          await notesService.addNote(newNote.value)
+          Pop.toast('Note created!', 'success')
+          newNote.value = {}
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+
       }
     }
   }
