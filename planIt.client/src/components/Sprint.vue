@@ -78,6 +78,7 @@
               'btn-primary': !activeTask?.isComplete,
               'btn-outline-primary': activeTask?.isComplete,
             }"
+            @click="setTaskStatus(false)"
           >
             Pending
           </button>
@@ -90,6 +91,7 @@
               'btn-success': activeTask?.isComplete,
               'btn-outline-success': !activeTask?.isComplete,
             }"
+            @click="setTaskStatus(true)"
           >
             Done
           </button>
@@ -137,6 +139,7 @@ import { logger } from '../utils/Logger.js';
 import { sprintsService } from '../services/SprintsService.js';
 import { useRoute } from 'vue-router';
 import { notesService } from '../services/NotesService.js';
+import { tasksService } from '../services/TasksService.js';
 export default {
   props:
   {
@@ -199,7 +202,24 @@ export default {
       startEdit()
       {
           AppState.editingTask = true;
-      }
+      },
+      async setTaskStatus(status)
+        {
+            try
+            {
+                const task = {
+                    id: activeTask.value.id,
+                    projectId: route.params.id,
+                    isComplete: status
+                };
+                await tasksService.editTask(task);
+            }
+            catch(error)
+            {
+                logger.error("[Task.vue > toggleTask()]", error.message);
+                Pop.toast(error.message, "error");
+            }
+        }
     }
   }
 }
