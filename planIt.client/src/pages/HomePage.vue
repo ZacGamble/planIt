@@ -63,11 +63,11 @@ export default {
   setup() {
 
     const user = computed(() => AppState.user);
-    onMounted(() => {
-      if (user.value.isAuthenticated) {
-        projectsService.getProjects();
-      }
-    })
+    // onMounted(() => {
+    //   if (user.value.isAuthenticated) {
+    //     projectsService.getProjects();
+    //   }
+    // })
 
     return {
       projects: computed(() => AppState.projects),

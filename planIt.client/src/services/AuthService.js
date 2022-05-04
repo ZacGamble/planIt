@@ -4,6 +4,7 @@ import { audience, clientId, domain } from '../env'
 import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
+import { projectsService } from './ProjectsService'
 import { socketService } from './SocketService'
 
 export const AuthService = initialize({
@@ -27,6 +28,8 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
+  await projectsService.getProjects();
+
 })
 
 async function refreshAuthToken(config) {
