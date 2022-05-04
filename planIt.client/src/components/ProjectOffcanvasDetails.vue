@@ -1,5 +1,10 @@
 <template>
-  <div class="d-flex justify-content-between" @click="changeProject">
+  <div
+    class="d-flex justify-content-between selectable no-select"
+    aria-label="navigate to project"
+    :title="'navigate to ' + project.name + ' project'"
+    @click="changeProject"
+  >
     <p>{{ project.name }}</p>
     <p>{{ project.createdAt.substring(0, 10) }}</p>
   </div>

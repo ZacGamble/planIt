@@ -47,6 +47,7 @@
     </div>
   </div>
   <Modal id="create-project-modal">
+    <template #modal-header-slot>Create Project</template>
     <template #modal-body-slot><CreateProjectForm /></template>
   </Modal>
 </template>
