@@ -17,15 +17,15 @@
             bg-light
           "
         >
-          <div class="d-flex">
-            <p class="me-2 my-0">ICON</p>
+          <div class="d-flex align-items-center">
+            <p class="me-2 my-0 fs-1">{{ index + 1 }}</p>
             <h5 class="mx-2 my-0">{{ sprint.name }}</h5>
             <h5 class="text-secondary-gradient ms-2 my-0">
               {{ tasksWeight }}
               <i class="mdi mdi-weight"></i>
             </h5>
           </div>
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
             <button class="btn btn-outline-primary me-4" @click.stop="addTask">
               + Add Task
             </button>
@@ -158,7 +158,12 @@ export default {
     {
       type: Object,
       required: true
+    },
+    index: {
+      type: Number,
+      required: true
     }
+
   },
 
   setup(props) {

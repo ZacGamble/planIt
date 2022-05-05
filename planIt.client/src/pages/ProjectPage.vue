@@ -5,14 +5,22 @@
       <div class="row">
         <div class="col-md-12">
           <div class="d-flex flex-column px-3">
-            <div class="d-flex p-2 m-2">
+            <div class="d-flex pt-3 align-items-center">
               <div
                 class="d-flex flex-column position-absolute offcanvas-trigger"
               >
                 <p
                   data-bs-toggle="offcanvas"
                   data-bs-target="#projects-offcanvas"
-                  class="bg-gradient px-4 py-2 fw-bold fs-4 selectable"
+                  class="
+                    bg-gradient
+                    px-4
+                    py-2
+                    fw-bold
+                    fs-4
+                    selectable
+                    text-light text-center
+                  "
                 >
                   P
                 </p>
@@ -21,31 +29,31 @@
                   data-bs-toggle="modal"
                   data-bs-target="#account-modal"
                 >
-                  <i class="mdi mdi-cog px-4 py-2"></i>
+                  <i class="mdi mdi-cog px-4 py-2 fs-4"></i>
                 </div>
               </div>
-              <h1>
+
+              <h1 class="my-0">
                 {{ project?.name }}
               </h1>
-              <button
-                class="btn btn-outline-danger mx-4"
-                @click="deleteProject"
-              >
-                Delete
-              </button>
+
+              <i
+                class="mdi mdi-delete fs-2 ms-4 text-secondary-gradient"
+                @click="deleteProject()"
+              ></i>
             </div>
-            <h5>
+            <h5 class="">
               {{ project?.description }}
             </h5>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="d-flex justify-content-between px-3">
+        <div class="col-md-12 mt-4">
+          <div class="d-flex justify-content-between px-3 align-items-center">
             <div class="div">
-              <h5 class="text-primary">Sprints</h5>
-              <p>
+              <h4 class="text-primary-gradient d-inline">Sprints</h4>
+              <p class="fw-bold">
                 Group your tasks into sprints for overarching collections for
                 better orgainization.
               </p>
@@ -67,7 +75,7 @@
         <h1 class="fw-bold">No sprints!</h1>
         <i class="mdi mdi-file-question-outline no-sprints-icon"></i>
       </div>
-      <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
+      <Sprint v-for="(s, i) in sprints" :key="s.id" :sprint="s" :index="i" />
     </div>
   </div>
   <Modal id="create-sprint-modal">
@@ -213,5 +221,12 @@ export default {
 
 .custom-gradient {
   background-color: linear-gradient(90deg, #9429c7, #c729c0);
+}
+
+@media only screen and (max-width: 992px) {
+  .offcanvas-trigger {
+    right: 0px;
+    left: unset;
+  }
 }
 </style>
