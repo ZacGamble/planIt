@@ -1,5 +1,5 @@
 <template>
-    <Loading class="flex-grow-1" v-if="loading" />
+    <Loading class="flex-grow-1" v-if="loading.length > 0" />
   <div v-else class="position-relative flex-grow-1 fade-in">
     <div class="container">
       <div class="row">
@@ -125,52 +125,55 @@ import Pop from '../utils/Pop.js'
 import { Offcanvas } from 'bootstrap'
 export default {
   components: { Sprint },
-//   watch: {
-//     async 'route.params.id'(newRoute) {
-//       loading.value = true;
-//       projectsService.clearActive();
-//       sprintsService.clearActive();
-//       tasksService.clearActive();
-//       notesService.clearActive();
-//       Offcanvas.getOrCreateInstance(document.getElementById('projects-offcanvas')).hide()
-//       await projectsService.getByProjectId(newRoute)
-//       await sprintsService.getByProjectId(newRoute)
-//       await tasksService.getByProjectId(newRoute)
-//       await notesService.getByProjectId(newRoute)
-//       loading.value = false;
-//     }
-//   },
+
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const loading = ref(true);
+    const loading = ref([]);
     const routeId = computed(() => route.params.id);
 
+    const componentLoaded = () => {
+        loading.value.pop();
+    }
+
+    const finishedLoading = () =>
+    {
+        const loadPromise = new Promise((resolve, reject) => {
+
+            while(loading.loading > 0) { /* intentionally empty */};
+            resolve();
+        });
+        return loadPromise;
+    }
+
     watch(routeId, async (newRoute) => {
-      loading.value = true;
-      projectsService.clearActive();
-      sprintsService.clearActive();
-      tasksService.clearActive();
-      notesService.clearActive();
-      Offcanvas.getOrCreateInstance(document.getElementById('projects-offcanvas')).hide()
-      await projectsService.getByProjectId(newRoute)
-      await sprintsService.getByProjectId(newRoute)
-      await tasksService.getByProjectId(newRoute)
-      await notesService.getByProjectId(newRoute)
-      loading.value = false;
+      if(newRoute)
+      {
+        loading.value = [1, 1, 1, 1];
+        projectsService.clearActive();
+        sprintsService.clearActive();
+        tasksService.clearActive();
+        notesService.clearActive();
+        Offcanvas.getOrCreateInstance(document.getElementById('projects-offcanvas')).hide()
+        projectsService.getByProjectId(newRoute).then(componentLoaded);
+        sprintsService.getByProjectId(newRoute).then(componentLoaded);
+        tasksService.getByProjectId(newRoute).then(componentLoaded);
+        notesService.getByProjectId(newRoute).then(componentLoaded);
+        await finishedLoading();
+      }
     })
 
     onMounted(async () => {
-        loading.value = true;
-      projectsService.clearActive();
-      sprintsService.clearActive();
-      tasksService.clearActive();
-      notesService.clearActive();
-      await projectsService.getByProjectId(route.params.id)
-      await sprintsService.getByProjectId(route.params.id)
-      await tasksService.getByProjectId(route.params.id)
-      await notesService.getByProjectId(route.params.id)
-      loading.value = false;
+        loading.value = [1, 1, 1, 1];
+        projectsService.clearActive();
+        sprintsService.clearActive();
+        tasksService.clearActive();
+        notesService.clearActive();
+        projectsService.getByProjectId(route.params.id).then(componentLoaded);
+        sprintsService.getByProjectId(route.params.id).then(componentLoaded);
+        tasksService.getByProjectId(route.params.id).then(componentLoaded);
+        notesService.getByProjectId(route.params.id).then(componentLoaded);
+        await finishedLoading();
     })
 
     return {
