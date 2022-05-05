@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main class="d-flex">
+  <main class="d-flex flex-column">
     <router-view />
   </main>
 </template>

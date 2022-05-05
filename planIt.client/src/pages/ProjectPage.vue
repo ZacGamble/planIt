@@ -1,5 +1,6 @@
 <template>
-  <div class="position-relative flex-grow-1">
+    <Loading class="flex-grow-1" v-if="loading" />
+  <div v-else class="position-relative flex-grow-1 fade-in">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -110,11 +111,11 @@
 
 
 <script>
-import { computed } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import Sprint from '../components/Sprint.vue'
 import { AppState } from '../AppState'
 import { useRoute, useRouter } from 'vue-router'
-import { onMounted, watchEffect } from '@vue/runtime-core'
+import { onMounted, watch, watchEffect } from '@vue/runtime-core'
 import { sprintsService } from '../services/SprintsService.js'
 import { logger } from '../utils/Logger'
 import { projectsService } from '../services/ProjectsService'
@@ -124,8 +125,29 @@ import Pop from '../utils/Pop.js'
 import { Offcanvas } from 'bootstrap'
 export default {
   components: { Sprint },
-  watch: {
-    async 'route.params.id'(newRoute) {
+//   watch: {
+//     async 'route.params.id'(newRoute) {
+//       loading.value = true;
+//       projectsService.clearActive();
+//       sprintsService.clearActive();
+//       tasksService.clearActive();
+//       notesService.clearActive();
+//       Offcanvas.getOrCreateInstance(document.getElementById('projects-offcanvas')).hide()
+//       await projectsService.getByProjectId(newRoute)
+//       await sprintsService.getByProjectId(newRoute)
+//       await tasksService.getByProjectId(newRoute)
+//       await notesService.getByProjectId(newRoute)
+//       loading.value = false;
+//     }
+//   },
+  setup() {
+    const route = useRoute()
+    const router = useRouter()
+    const loading = ref(true);
+    const routeId = computed(() => route.params.id);
+
+    watch(routeId, async (newRoute) => {
+      loading.value = true;
       projectsService.clearActive();
       sprintsService.clearActive();
       tasksService.clearActive();
@@ -135,13 +157,11 @@ export default {
       await sprintsService.getByProjectId(newRoute)
       await tasksService.getByProjectId(newRoute)
       await notesService.getByProjectId(newRoute)
-    }
-  },
-  setup() {
-    const route = useRoute()
-    const router = useRouter()
+      loading.value = false;
+    })
 
     onMounted(async () => {
+        loading.value = true;
       projectsService.clearActive();
       sprintsService.clearActive();
       tasksService.clearActive();
@@ -150,9 +170,11 @@ export default {
       await sprintsService.getByProjectId(route.params.id)
       await tasksService.getByProjectId(route.params.id)
       await notesService.getByProjectId(route.params.id)
+      loading.value = false;
     })
 
     return {
+        loading,
       sprints: computed(() => AppState.sprints),
       project: computed(() => AppState.activeProject),
       projects: computed(() => AppState.projects),
