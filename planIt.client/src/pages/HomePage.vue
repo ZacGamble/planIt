@@ -3,7 +3,7 @@
     <h4>Login to continue</h4>
     <Login />
   </div>
-  <div v-else class="boundary flex-grow-1">
+  <div v-else class="boundary flex-grow-1 fade-in">
     <div
       class="
         container
@@ -31,7 +31,10 @@
           </button>
         </div>
       </div>
-      <div class="row mt-5">
+      <div v-if="!(projects.length > 0)">
+        <h1>Projects will appear here</h1>
+      </div>
+      <div v-else class="row mt-5">
         <div class="col-md-4">
           <h5>NAME</h5>
         </div>

@@ -12,6 +12,8 @@
                 <p
                   data-bs-toggle="offcanvas"
                   data-bs-target="#projects-offcanvas"
+                  title="view all my projects"
+                  aria-label="show my projects"
                   class="
                     bg-gradient
                     px-4
@@ -29,7 +31,11 @@
                   data-bs-toggle="modal"
                   data-bs-target="#account-modal"
                 >
-                  <i class="mdi mdi-cog px-4 py-2 fs-4"></i>
+                  <i
+                    class="mdi mdi-cog px-4 py-2 fs-4"
+                    title="edit account details"
+                    aria-label="edit account details"
+                  ></i>
                 </div>
               </div>
 
@@ -38,9 +44,11 @@
               </h1>
 
               <i
-                class="mdi mdi-delete fs-2 ms-4 text-secondary-gradient"
+                class="mdi mdi-delete fs-2 ms-4 text-secondary-gradient action"
                 @click="deleteProject()"
                 v-show="account.id === project?.creatorId"
+                title="delete project"
+                aria-label="delete project"
               ></i>
             </div>
             <h5 class="">
