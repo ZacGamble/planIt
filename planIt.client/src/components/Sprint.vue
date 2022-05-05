@@ -21,7 +21,7 @@
             <p class="me-2 my-0 fs-1">{{ index + 1 }}</p>
             <h5 class="mx-2 my-0">{{ sprint.name }}</h5>
             <h5 class="text-secondary-gradient ms-2 my-0">
-              {{ tasksWeight }}
+              {{ tasksWeightRemaining }} / {{ tasksWeight }}
               <i class="mdi mdi-weight"></i>
             </h5>
           </div>
@@ -197,6 +197,11 @@ export default {
       activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value?.id)),
       accountId: computed(() => AppState.account.id),
       projectCreatorId: computed(() => AppState.activeProject.creatorId),
+      tasksWeightRemaining: computed(() => {
+        let sum = 0;
+        tasks.value.filter(task => !task.isComplete).forEach(task => sum += task.weight)
+        return sum;
+      }),
       tasksWeight: computed(() => {
         let sum = 0;
         tasks.value.forEach(task => sum += task.weight)

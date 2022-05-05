@@ -1,5 +1,8 @@
 <template>
-  <div class="component my-2 py-2 ms-5 no-select">
+  <div
+    class="component my-2 py-2 ms-5 no-select"
+    :class="{ completed: task.isComplete }"
+  >
     <div class="d-flex">
       <i
         class="pe-1 fs-3 mdi"
@@ -123,5 +126,9 @@ export default {
 .task-details {
   position: relative;
   top: -0.5rem;
+}
+
+.completed {
+  filter: saturate(50%);
 }
 </style>
