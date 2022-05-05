@@ -39,7 +39,7 @@
                 </div>
               </div>
 
-              <h1 class="my-0">
+              <h1 class="my-0 no-select">
                 {{ project?.name }}
               </h1>
 
@@ -51,7 +51,7 @@
                 aria-label="delete project"
               ></i>
             </div>
-            <h5 class="">
+            <h5 class="no-select">
               {{ project?.description }}
             </h5>
           </div>
@@ -61,8 +61,8 @@
         <div class="col-md-12 mt-4">
           <div class="d-flex justify-content-between px-3 align-items-center">
             <div class="div">
-              <h4 class="text-primary-gradient d-inline">Sprints</h4>
-              <p class="fw-bold">
+              <h4 class="text-primary-gradient d-inline no-select">Sprints</h4>
+              <p class="fw-bold no-select">
                 Group your tasks into sprints for overarching collections for
                 better orgainization.
               </p>
@@ -98,14 +98,26 @@
   </Modal>
   <OffCanvas class="offcanvas-start" id="projects-offcanvas">
     <template #offcanvas-header-slot>
-      <h4>Projects<i class="mdi mdi-folder-heart fs-2 ms-4"></i></h4>
-      <h6>for {{ account.name }}</h6>
+      <div
+        class="
+          text-primary-gradient
+          d-flex
+          justify-content-between
+          align-items-center
+          flex-grow-1
+          ms-4
+          no-select
+        "
+      >
+        <h4>Projects<i class="mdi mdi-folder-heart fs-2 ms-5 mt-1"></i></h4>
+        <h6>for {{ account.name }}</h6>
+      </div>
     </template>
     <template #offcanvas-body-slot>
       <div class="flex-column d-flex">
         <div class="d-flex justify-content-between">
-          <h6>NAME</h6>
-          <h6>STARTED</h6>
+          <h6 class="no-select">NAME</h6>
+          <h6 class="no-select">STARTED</h6>
         </div>
         <!-- Project offcanvas component here -->
         <ProjectOffcanvasDetails

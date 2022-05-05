@@ -1,6 +1,6 @@
 <template>
   <div
-    class="row mb-4 selectable align-items-center border-bottom py-2"
+    class="row mb-4 selectable align-items-center border-bottom py-2 no-select"
     @click="openProject()"
     :title="'open ' + project.name"
   >

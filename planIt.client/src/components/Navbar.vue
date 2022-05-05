@@ -6,7 +6,7 @@
       title="go to home page"
     >
       <div class="d-flex flex-column align-items-center">
-        <h4 class="text-secondary-gradient">
+        <h4 class="text-secondary-gradient no-select">
           <i class="mdi mdi-rocket-launch-outline me-1"></i>PlanIt
         </h4>
       </div>

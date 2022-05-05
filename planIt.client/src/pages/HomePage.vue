@@ -17,8 +17,10 @@
     >
       <div class="row">
         <div class="col-md-10">
-          <h3 class="text-primary-gradient d-inline">Projects</h3>
-          <p class="fs-4">A list of all the projects for {{ account.name }}</p>
+          <h3 class="text-primary-gradient d-inline no-select">Projects</h3>
+          <p class="fs-4 no-select">
+            A list of all the projects for {{ account.name }}
+          </p>
         </div>
         <div class="col-md-2">
           <button
@@ -36,13 +38,13 @@
       </div>
       <div v-else class="row mt-5 text-primary-gradient">
         <div class="col-md-4">
-          <h5>NAME</h5>
+          <h5 class="no-select">NAME</h5>
         </div>
         <div class="col-md-4">
-          <h5>MEMBERS</h5>
+          <h5 class="no-select">MEMBERS</h5>
         </div>
         <div class="col-md-4">
-          <h5>STARTED</h5>
+          <h5 class="no-select">STARTED</h5>
         </div>
       </div>
       <hr />
