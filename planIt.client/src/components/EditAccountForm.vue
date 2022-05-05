@@ -60,7 +60,8 @@ export default {
       edit,
       async editAccount() {
         try {
-          await accountService.editAccount()
+          await accountService.editAccount(edit.value)
+          Pop.toast("Account edited successfully", 'success')
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
@@ -74,7 +75,9 @@ export default {
 
 <style lang="scss" scoped>
 .img-clamp {
-  max-height: 5em;
+  height: 5em;
+  width: 5em;
   border-radius: 50%;
+  object-fit: cover;
 }
 </style>

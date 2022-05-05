@@ -1,7 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-12">
-      <a @click="toggleCollapse" role="button">
+    <div class="col-12 no-select">
+      <a
+        @click="toggleCollapse"
+        role="button"
+        :title="'click to toggle ' + sprint.name"
+      >
         <div
           class="
             d-flex
@@ -44,6 +48,9 @@
         "
         :class="{ 'not-shown': collapsed, 'p-2': !collapsed }"
       >
+        <div class="text-center fs-2 fw-bold my-3" v-if="!(tasks.length > 0)">
+          No tasks yet.
+        </div>
         <Task v-for="t in tasks" :key="t.id" :task="t" />
         <div class="my-3"></div>
         <div class="d-flex sprint-delete-button action" @click="deleteSprint">
@@ -68,7 +75,7 @@
       </div>
     </template>
     <template #offcanvas-body-slot>
-        <TaskForm v-if="activeTask && editing" />
+      <TaskForm v-if="activeTask && editing" />
       <div>
         <p>Status:</p>
         <div class="d-flex align-items-center mx-3">
@@ -199,27 +206,23 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
-      startEdit()
-      {
-          AppState.editingTask = true;
+      startEdit() {
+        AppState.editingTask = true;
       },
-      async setTaskStatus(status)
-        {
-            try
-            {
-                const task = {
-                    id: activeTask.value.id,
-                    projectId: route.params.id,
-                    isComplete: status
-                };
-                await tasksService.editTask(task);
-            }
-            catch(error)
-            {
-                logger.error("[Task.vue > toggleTask()]", error.message);
-                Pop.toast(error.message, "error");
-            }
+      async setTaskStatus(status) {
+        try {
+          const task = {
+            id: activeTask.value.id,
+            projectId: route.params.id,
+            isComplete: status
+          };
+          await tasksService.editTask(task);
         }
+        catch (error) {
+          logger.error("[Task.vue > toggleTask()]", error.message);
+          Pop.toast(error.message, "error");
+        }
+      }
     }
   }
 }

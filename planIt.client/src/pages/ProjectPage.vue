@@ -59,8 +59,12 @@
           </div>
         </div>
       </div>
-      <div v-if="!(sprints.length > 0)">
-        <h2>No sprints!</h2>
+      <div
+        v-if="!(sprints.length > 0)"
+        class="text-center mt-5 border text-dark"
+      >
+        <h1 class="fw-bold">No sprints!</h1>
+        <i class="mdi mdi-file-question-outline no-sprints-icon"></i>
       </div>
       <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
     </div>
@@ -75,7 +79,7 @@
   </Modal>
   <OffCanvas class="offcanvas-start" id="projects-offcanvas">
     <template #offcanvas-header-slot>
-      <h4>Projects</h4>
+      <h4>Projects<i class="mdi mdi-folder-heart fs-2 ms-4"></i></h4>
       <h6>for {{ account.name }}</h6>
     </template>
     <template #offcanvas-body-slot>
@@ -178,5 +182,9 @@ export default {
 .offcanvas-trigger {
   left: 0px;
   top: 10px;
+}
+.no-sprints-icon {
+  font-size: 10em;
+  color: rgb(109, 97, 97);
 }
 </style>
