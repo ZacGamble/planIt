@@ -26,7 +26,12 @@
             </h5>
           </div>
           <div class="d-flex align-items-center">
-            <button class="btn btn-outline-primary me-4" @click.stop="addTask" v-show="projectCreatorId === accountId">
+            <button
+              class="btn btn-outline-primary me-4"
+              @click.stop="addTask"
+              v-show="projectCreatorId === accountId"
+              aria-label="add task"
+            >
               + Add Task
             </button>
             <h5 class="my-0 me-2">
@@ -60,7 +65,11 @@
           v-if="projectCreatorId === accountId"
         >
           <p class="m-0 text-secondary-gradient">Delete {{ sprint.name }}</p>
-          <i class="mdi mdi-delete text-secondary-gradient fs-4 ms-2"></i>
+          <i
+            class="mdi mdi-delete text-secondary-gradient fs-4 ms-2"
+            title="delete sprint"
+            aria-label="delete sprint"
+          ></i>
         </div>
       </div>
     </div>
@@ -76,7 +85,13 @@
     <template #offcanvas-header-slot>
       <div class="d-flex justify-content-between flex-grow-1 ms-4">
         <h4>{{ activeTask?.name }}</h4>
-        <i class="mdi mdi-pencil action" @click="startEdit" v-if="!editing && projectCreatorId === accountId"></i>
+        <i
+          class="mdi mdi-pencil action"
+          @click="startEdit"
+          v-if="!editing && projectCreatorId === accountId"
+          aria-label="edit task"
+          title="edit task"
+        ></i>
       </div>
     </template>
     <template #offcanvas-body-slot>

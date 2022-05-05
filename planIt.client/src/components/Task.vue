@@ -7,9 +7,11 @@
         :class="{
           'mdi-checkbox-outline': task.isComplete,
           'mdi-checkbox-blank-outline': !task.isComplete,
-          action: projectCreatorId === accountId
+          action: projectCreatorId === accountId,
         }"
         @click="toggleTask"
+        role="button"
+        aria-label="toggle task"
       ></i>
       <div class="d-flex align-items-center">
         <p class="my-0 px-3 py-1 rounded-pill bg-danger">{{ task.name }}</p>
@@ -19,6 +21,8 @@
         :title="'delete ' + task.name"
         @click="deleteTask"
         v-show="projectCreatorId === accountId"
+        aria-label="delete task"
+        role="button"
       ></i>
     </div>
     <div class="d-flex flex-column">
@@ -40,7 +44,12 @@
         <div class="task-details ms-3">
           <span class="pe-4" @click="openOffCanvas"
             >{{ notesCount
-            }}<i class="mdi mdi-comment action" title="open detailed view"></i
+            }}<i
+              class="mdi mdi-comment action"
+              title="open detailed view"
+              aria-label="open task details"
+              role="button"
+            ></i
           ></span>
           <span>{{ task.weight }}<i class="mdi mdi-weight"></i></span>
         </div>

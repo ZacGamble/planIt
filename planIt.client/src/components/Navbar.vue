@@ -1,6 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link
+      class="navbar-brand d-flex"
+      :to="{ name: 'Home' }"
+      title="go to home page"
+    >
       <div class="d-flex flex-column align-items-center">
         <h4>PlanIt</h4>
       </div>

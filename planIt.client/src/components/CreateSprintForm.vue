@@ -9,6 +9,7 @@
           placeholder="Name..."
           aria-labelledby="name"
           v-model="newData.name"
+          maxlength="20"
           required
         />
       </div>
@@ -32,26 +33,23 @@ import { Modal } from 'bootstrap';
 import { useRoute } from 'vue-router';
 export default {
   setup() {
-      const newData = ref({});
-      const route = useRoute();
+    const newData = ref({});
+    const route = useRoute();
     return {
-        newData,
-        async createSprint()
-        {
-            try
-            {
-                newData.value.projectId = route.params.id;
-                Modal.getOrCreateInstance(document.getElementById("create-sprint-modal")).hide();
-                const newId = await sprintsService.createSprint(newData.value);
-                Pop.toast("New Sprint created", "success")
-                newData.value = {};
-            }
-            catch(error)
-            {
-                logger.error("[Create Sprint Form > createSprint()]", error.message);
-                Pop.toast(error.message, "error");
-            }
+      newData,
+      async createSprint() {
+        try {
+          newData.value.projectId = route.params.id;
+          Modal.getOrCreateInstance(document.getElementById("create-sprint-modal")).hide();
+          const newId = await sprintsService.createSprint(newData.value);
+          Pop.toast("New Sprint created", "success")
+          newData.value = {};
         }
+        catch (error) {
+          logger.error("[Create Sprint Form > createSprint()]", error.message);
+          Pop.toast(error.message, "error");
+        }
+      }
     }
   }
 }
