@@ -22,7 +22,7 @@ class SprintsService
     async create(data)
     {
         const projectOwner = (await projectsService.getById(data.projectId)).creatorId;
-        if(projectOwner.toString !== data.creatorId)
+        if(projectOwner.toString() !== data.creatorId)
         {
             throw new Forbidden("You cannot create sprints on this project.");
         }

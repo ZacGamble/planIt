@@ -26,7 +26,7 @@
             </h5>
           </div>
           <div class="d-flex align-items-center">
-            <button class="btn btn-outline-primary me-4" @click.stop="addTask">
+            <button class="btn btn-outline-primary me-4" @click.stop="addTask" v-show="projectCreatorId === accountId">
               + Add Task
             </button>
             <h5 class="my-0 me-2">
@@ -53,10 +53,11 @@
           No tasks yet.
         </div>
         <Task v-for="t in tasks" :key="t.id" :task="t" />
-        <div class="my-5"></div>
+        <div class="my-5" v-if="projectCreatorId === accountId"></div>
         <div
           class="d-flex sprint-delete-button action align-items-center"
           @click="deleteSprint"
+          v-if="projectCreatorId === accountId"
         >
           <p class="m-0 text-secondary-gradient">Delete {{ sprint.name }}</p>
           <i class="mdi mdi-delete text-secondary-gradient fs-4 ms-2"></i>
@@ -75,7 +76,7 @@
     <template #offcanvas-header-slot>
       <div class="d-flex justify-content-between flex-grow-1 ms-4">
         <h4>{{ activeTask?.name }}</h4>
-        <i class="mdi mdi-pencil action" @click="startEdit" v-if="!editing"></i>
+        <i class="mdi mdi-pencil action" @click="startEdit" v-if="!editing && projectCreatorId === accountId"></i>
       </div>
     </template>
     <template #offcanvas-body-slot>
@@ -179,6 +180,8 @@ export default {
       tasks,
       editing: computed(() => AppState.editingTask),
       activeNotes: computed(() => AppState.notes.filter(note => note.taskId === activeTask.value?.id)),
+      accountId: computed(() => AppState.account.id),
+      projectCreatorId: computed(() => AppState.activeProject.creatorId),
       tasksWeight: computed(() => {
         let sum = 0;
         tasks.value.forEach(task => sum += task.weight)

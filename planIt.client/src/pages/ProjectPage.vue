@@ -40,6 +40,7 @@
               <i
                 class="mdi mdi-delete fs-2 ms-4 text-secondary-gradient"
                 @click="deleteProject()"
+                v-show="account.id === project?.creatorId"
               ></i>
             </div>
             <h5 class="">
@@ -62,6 +63,7 @@
               class="btn btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#create-sprint-modal"
+              v-show="account.id === project?.creatorId"
             >
               Add Sprint
             </button>

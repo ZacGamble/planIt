@@ -2,11 +2,12 @@
   <div class="component my-2 py-2 ms-5 no-select">
     <div class="d-flex">
       <i
-        class="action pe-1 fs-3 mdi"
-        title="click to toggle"
+        class="pe-1 fs-3 mdi"
+        :title="projectCreatorId === accountId ? 'click to toggle' : ''"
         :class="{
           'mdi-checkbox-outline': task.isComplete,
           'mdi-checkbox-blank-outline': !task.isComplete,
+          action: projectCreatorId === accountId
         }"
         @click="toggleTask"
       ></i>
@@ -17,6 +18,7 @@
         class="ps-1 action fs-3 text-grey mdi mdi-delete"
         :title="'delete ' + task.name"
         @click="deleteTask"
+        v-show="projectCreatorId === accountId"
       ></i>
     </div>
     <div class="d-flex flex-column">
@@ -71,9 +73,12 @@ export default {
   setup(props) {
     const route = useRoute();
     const notes = computed(() => AppState.notes.filter(note => note.taskId === props.task.id));
+
     return {
       notes,
       notesCount: computed(() => notes.value.length),
+      accountId: computed(() => AppState.account.id),
+      projectCreatorId: computed(() => AppState.activeProject.creatorId),
       async toggleTask() {
         try {
           await tasksService.toggleTask(props.task.id, route.params.id, { isComplete: !props.task.isComplete });
