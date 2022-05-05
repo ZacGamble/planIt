@@ -6,7 +6,9 @@
       title="go to home page"
     >
       <div class="d-flex flex-column align-items-center">
-        <h4>PlanIt</h4>
+        <h4 class="text-secondary-gradient">
+          <i class="mdi mdi-rocket-launch-outline me-1"></i>PlanIt
+        </h4>
       </div>
     </router-link>
     <button

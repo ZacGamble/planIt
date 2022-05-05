@@ -1,6 +1,6 @@
 <template>
   <div
-    class="row mb-4 selectable"
+    class="row mb-4 selectable align-items-center border-bottom py-2"
     @click="openProject()"
     :title="'open ' + project.name"
   >
@@ -10,11 +10,11 @@
     <div class="col-4">
       <img
         :src="project.creator.picture"
-        class="member-img"
+        class="img-clamp"
         alt="profile picture"
       />
     </div>
-    <div class="col-4">{{ project.createdAt.substring(0, 10) }}</div>
+    <div class="col-4 fw-bold">{{ project.createdAt.substring(0, 10) }}</div>
   </div>
 </template>
 
@@ -44,8 +44,10 @@ export default
 </script>
 
 <style lang="scss" scoped>
-.member-img {
+.img-clamp {
+  height: 5em;
+  width: 5em;
   border-radius: 50%;
-  max-height: 120px;
+  object-fit: cover;
 }
 </style>

@@ -17,7 +17,7 @@
     >
       <div class="row">
         <div class="col-md-10">
-          <h3>Projects</h3>
+          <h3 class="text-primary-gradient d-inline">Projects</h3>
           <p class="fs-4">A list of all the projects for {{ account.name }}</p>
         </div>
         <div class="col-md-2">
@@ -34,7 +34,7 @@
       <div v-if="!(projects.length > 0)">
         <h1>Projects will appear here</h1>
       </div>
-      <div v-else class="row mt-5">
+      <div v-else class="row mt-5 text-primary-gradient">
         <div class="col-md-4">
           <h5>NAME</h5>
         </div>
@@ -90,6 +90,12 @@ export default {
 .projects-container {
   filter: drop-shadow(1em 0.8em 10px rgb(53, 49, 49));
   flex-grow: 1;
+}
+.img-clamp {
+  height: 5em;
+  width: 5em;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .home {
   display: grid;
