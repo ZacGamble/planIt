@@ -1,5 +1,6 @@
 import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors";
 import { dbContext } from "../db/DbContext.js";
+import { projectsService } from "./ProjectsService.js";
 
 class SprintsService
 {
@@ -20,6 +21,11 @@ class SprintsService
 
     async create(data)
     {
+        const projectOwner = (await projectsService.getById(data.projectId)).creatorId;
+        if(projectOwner.toString !== data.creatorId)
+        {
+            throw new Forbidden("You cannot create sprints on this project.");
+        }
         const created = await dbContext.Sprints.create(data);
         await created.populate('creator');
         return created;
@@ -28,7 +34,8 @@ class SprintsService
     async remove(id, userId)
     {
         const deleted = await this.getById(id);
-        if(deleted.creatorId.toString() !== userId)
+        const projectOwner = (await projectsService.getById(deleted.projectId)).creatorId;
+        if(deleted.creatorId.toString() !== userId && projectOwner.toString() != userId)
         {
             throw new Forbidden("You do not have permission to delete this.");
         }

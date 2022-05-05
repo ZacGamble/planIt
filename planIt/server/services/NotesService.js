@@ -1,5 +1,6 @@
 import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors";
 import { dbContext } from "../db/DbContext.js";
+import { projectsService } from "./ProjectsService.js";
 
 class NotesService
 {
@@ -28,7 +29,8 @@ class NotesService
     async remove(id, userId)
     {
         const deleted = await this.getById(id);
-        if(deleted.creatorId.toString() !== userId)
+        const projectOwner = (await projectsService.getById(deleted.projectId)).creatorId;
+        if(deleted.creatorId.toString() !== userId && projectOwner.toString() != userId)
         {
             throw new Forbidden("You do not have permission to delete this.");
         }

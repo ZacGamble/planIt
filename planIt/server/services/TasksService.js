@@ -1,5 +1,6 @@
 import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors";
 import { dbContext } from "../db/DbContext.js";
+import { projectsService } from "./ProjectsService.js";
 
 class TasksService
 {
@@ -20,7 +21,11 @@ class TasksService
 
     async create(data)
     {
-        // TODO add project creator check 
+        const projectOwner = (await projectsService.getById(data.projectId)).creatorId;
+        if(projectOwner.toString !== data.creatorId)
+        {
+            throw new Forbidden("You cannot create tasks on this project.");
+        }
         const created = await dbContext.Tasks.create(data);
         await created.populate('creator');
         return created;
@@ -28,8 +33,9 @@ class TasksService
     
     async edit(data)
     {
-        const edited = await this.getById(data.id)
-        if(edited.creatorId.toString() !== data.creatorId)
+        const edited = await this.getById(data.id);
+        const projectOwner = (await projectsService.getById(edited.projectId)).creatorId;
+        if(edited.creatorId.toString() !== data.creatorId || projectOwner.toString() != data.creatorId)
         {
             throw new Forbidden("You do not have permission to edit this.");
         }
@@ -44,7 +50,8 @@ class TasksService
     async remove(id, userId)
     {
         const deleted = await this.getById(id);
-        if(deleted.creatorId.toString() !== userId)
+        const projectOwner = (await projectsService.getById(deleted.projectId)).creatorId;
+        if(deleted.creatorId.toString() !== userId && projectOwner.toString() != userId)
         {
             throw new Forbidden("You do not have permission to delete this.");
         }

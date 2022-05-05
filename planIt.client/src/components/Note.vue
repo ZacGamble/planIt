@@ -43,8 +43,8 @@ export default {
                 if(await Pop.confirm())
                 {
                     await notesService.deleteNote(props.note.id, route.params.id);
+                    Pop.toast("Note deleted", "success")
                 }
-                Pop.toast("Note deleted", "success")
             }
             catch(error)
             {
