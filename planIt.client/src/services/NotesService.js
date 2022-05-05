@@ -19,6 +19,13 @@ class NotesService
      {
          AppState.notes = [];
      }
+
+     async deleteNote(id, projectId)
+     {
+         const res = await api.delete("api/projects/" + projectId + "/notes/" + id);
+         const index = AppState.notes.findIndex(note => note.id === res.data.id);
+         AppState.notes.splice(index, 1);
+     }
 }
 
 export const notesService = new NotesService();
