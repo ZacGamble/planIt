@@ -4,16 +4,18 @@
       class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
+      title="login"
     >
       Login
     </button>
 
     <div class="dropdown my-2 my-lg-0" v-else>
       <div
-        class="dropdown-toggle selectable"
+        class="dropdown-toggle selectable me-5"
         data-bs-toggle="dropdown"
         aria-expanded="false"
         id="authDropdown"
+        title="show account options"
       >
         <div v-if="account.picture">
           <img
@@ -29,11 +31,6 @@
         class="dropdown-menu p-0 list-group w-100"
         aria-labelledby="authDropdown"
       >
-        <router-link :to="{ name: 'Account' }">
-          <div class="list-group-item list-group-item-action hoverable">
-            Manage Account
-          </div>
-        </router-link>
         <div
           class="list-group-item list-group-item-action hoverable text-danger"
           @click="logout"

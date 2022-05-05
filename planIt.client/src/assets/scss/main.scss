@@ -26,6 +26,7 @@ select {
     &:valid {
       border: 1px solid $success;
     }
+
     &:invalid {
       border: 1px solid $danger;
     }
@@ -37,15 +38,42 @@ form:invalid button[type="submit"] {
   pointer-events: none;
 }
 
-@keyframes fadein
-{
-    from {opacity: 0}
-    to {opacity: 100}
+@keyframes fadein {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 100
+  }
 }
 
-.fade-in
-{
-    animation-name: fadein;
-    animation-timing-function: ease-out;
-    animation-duration: 0.15s;
+.fade-in {
+  animation-name: fadein;
+  animation-timing-function: ease-out;
+  animation-duration: 0.15s;
+}
+
+.text-primary-gradient {
+  background: linear-gradient(to right, #9429C7, #C729C0);
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-secondary-gradient {
+  background: linear-gradient(to right, #DD49F5, #F5499C);
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-primary-gradient {
+  background: linear-gradient(to right, #9429C7, #C729C0);
+}
+
+.bg-secondary-gradient {
+  background: linear-gradient(to right, #DD49F5, #F5499C);
 }

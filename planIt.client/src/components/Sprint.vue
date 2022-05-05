@@ -20,8 +20,9 @@
           <div class="d-flex">
             <p class="me-2 my-0">ICON</p>
             <h5 class="mx-2 my-0">{{ sprint.name }}</h5>
-            <h5 class="text-primary ms-2 my-0">
-              {{ tasksWeight }} <i class="mdi mdi-weight"></i>
+            <h5 class="text-secondary-gradient ms-2 my-0">
+              {{ tasksWeight }}
+              <i class="mdi mdi-weight"></i>
             </h5>
           </div>
           <div class="d-flex">
@@ -42,7 +43,7 @@
           mx-2
           mb-2
           border border-dark
-          bg-grey
+          bg-secondary
           border-top-0
           position-relative
         "
@@ -52,10 +53,13 @@
           No tasks yet.
         </div>
         <Task v-for="t in tasks" :key="t.id" :task="t" />
-        <div class="my-3"></div>
-        <div class="d-flex sprint-delete-button action" @click="deleteSprint">
-          <p class="m-0">Delete {{ sprint.name }}</p>
-          <i class="mdi mdi-delete"></i>
+        <div class="my-5"></div>
+        <div
+          class="d-flex sprint-delete-button action align-items-center"
+          @click="deleteSprint"
+        >
+          <p class="m-0 text-secondary-gradient">Delete {{ sprint.name }}</p>
+          <i class="mdi mdi-delete text-secondary-gradient fs-4 ms-2"></i>
         </div>
       </div>
     </div>
@@ -105,7 +109,7 @@
         </div>
       </div>
       <div class="mt-3 flex-column d-flex">
-        <h5 class="align-self-center">Notes</h5>
+        <h5 class="align-self-center text-primary-gradient">Notes</h5>
         <hr class="mx-5" />
         <div>
           <form @submit.prevent="addNote">

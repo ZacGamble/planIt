@@ -1,5 +1,5 @@
 <template>
-    <Loading class="flex-grow-1" v-if="loading.length > 0" />
+  <Loading class="flex-grow-1" v-if="loading.length > 0" />
   <div v-else class="position-relative flex-grow-1 fade-in">
     <div class="container">
       <div class="row">
@@ -12,7 +12,7 @@
                 <p
                   data-bs-toggle="offcanvas"
                   data-bs-target="#projects-offcanvas"
-                  class="bg-primary px-4 py-2 fw-bold fs-4 selectable"
+                  class="bg-gradient px-4 py-2 fw-bold fs-4 selectable"
                 >
                   P
                 </p>
@@ -133,22 +133,20 @@ export default {
     const routeId = computed(() => route.params.id);
 
     const componentLoaded = () => {
-        loading.value.pop();
+      loading.value.pop();
     }
 
-    const finishedLoading = () =>
-    {
-        const loadPromise = new Promise((resolve, reject) => {
+    const finishedLoading = () => {
+      const loadPromise = new Promise((resolve, reject) => {
 
-            while(loading.loading > 0) { /* intentionally empty */};
-            resolve();
-        });
-        return loadPromise;
+        while (loading.loading > 0) { /* intentionally empty */ };
+        resolve();
+      });
+      return loadPromise;
     }
 
     watch(routeId, async (newRoute) => {
-      if(newRoute)
-      {
+      if (newRoute) {
         loading.value = [1, 1, 1, 1];
         projectsService.clearActive();
         sprintsService.clearActive();
@@ -164,20 +162,20 @@ export default {
     })
 
     onMounted(async () => {
-        loading.value = [1, 1, 1, 1];
-        projectsService.clearActive();
-        sprintsService.clearActive();
-        tasksService.clearActive();
-        notesService.clearActive();
-        projectsService.getByProjectId(route.params.id).then(componentLoaded);
-        sprintsService.getByProjectId(route.params.id).then(componentLoaded);
-        tasksService.getByProjectId(route.params.id).then(componentLoaded);
-        notesService.getByProjectId(route.params.id).then(componentLoaded);
-        await finishedLoading();
+      loading.value = [1, 1, 1, 1];
+      projectsService.clearActive();
+      sprintsService.clearActive();
+      tasksService.clearActive();
+      notesService.clearActive();
+      projectsService.getByProjectId(route.params.id).then(componentLoaded);
+      sprintsService.getByProjectId(route.params.id).then(componentLoaded);
+      tasksService.getByProjectId(route.params.id).then(componentLoaded);
+      notesService.getByProjectId(route.params.id).then(componentLoaded);
+      await finishedLoading();
     })
 
     return {
-        loading,
+      loading,
       sprints: computed(() => AppState.sprints),
       project: computed(() => AppState.activeProject),
       projects: computed(() => AppState.projects),
@@ -211,5 +209,9 @@ export default {
 .no-sprints-icon {
   font-size: 10em;
   color: rgb(109, 97, 97);
+}
+
+.custom-gradient {
+  background-color: linear-gradient(90deg, #9429c7, #c729c0);
 }
 </style>

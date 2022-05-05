@@ -1,13 +1,13 @@
 $body-bg: #e5e5e5;
-$primary: #9b29c5;
-$secondary: #d0d7e1;
+$primary: #9429c7;
+$secondary: #c4c4c4;
 $success: #00f867;
 $info: #5d0149;
 $warning: #fbcf33;
 $danger: #ea0606;
 $light: #e9ecef;
 $dark: #111927;
-$grey: #cbcbcb;
+$grey: #7d7985;
 
 $font-sans-serif: Open Sans;
 $font-monospace: SFMono-Regular,
@@ -17,7 +17,7 @@ Consolas,
 "Liberation Mono",
 "Courier New",
 monospace;
-$gradient: linear-gradient(180deg, hsla(0, 0%, 100%, 0.15), hsla(0, 0%, 100%, 0));
+$gradient: linear-gradient(90deg, #9429c7, #c729c0);
 
 $colors: ("primary": $primary,
   "secondary": $secondary,

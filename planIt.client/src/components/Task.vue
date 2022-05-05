@@ -13,7 +13,11 @@
       <div class="d-flex align-items-center">
         <p class="my-0 px-3 py-1 rounded-pill bg-danger">{{ task.name }}</p>
       </div>
-      <i class="ps-1 action fs-3 mdi mdi-delete" @click="deleteTask"></i>
+      <i
+        class="ps-1 action fs-3 text-grey mdi mdi-delete"
+        :title="'delete ' + task.name"
+        @click="deleteTask"
+      ></i>
     </div>
     <div class="d-flex flex-column">
       <!-- <div class="d-flex">
@@ -33,7 +37,8 @@
       >
         <div class="task-details ms-3">
           <span class="pe-4" @click="openOffCanvas"
-            >{{ notesCount }}<i class="mdi mdi-comment action"></i
+            >{{ notesCount
+            }}<i class="mdi mdi-comment action" title="open detailed view"></i
           ></span>
           <span>{{ task.weight }}<i class="mdi mdi-weight"></i></span>
         </div>

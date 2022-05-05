@@ -1,5 +1,9 @@
 <template>
-  <div class="row mb-4 selectable" @click="openProject()">
+  <div
+    class="row mb-4 selectable"
+    @click="openProject()"
+    :title="'open ' + project.name"
+  >
     <div class="col-4">
       <h4>{{ project.name }}</h4>
     </div>
